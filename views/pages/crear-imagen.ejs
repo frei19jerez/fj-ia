@@ -1,0 +1,123 @@
+<section class="card">
+
+  <h1>
+    🎨 Crear imagen con IA
+  </h1>
+
+  <p style="color:#94a3b8;">
+    Convierte una idea en una imagen profesional usando inteligencia artificial.
+  </p>
+
+  <form method="POST" action="/crear-imagen">
+
+    <label>
+      Estilo visual
+    </label>
+
+    <select name="estilo">
+
+      <option value="realista">
+        Realista
+      </option>
+
+      <option value="cinematografico">
+        Cinematográfico
+      </option>
+
+      <option value="anime">
+        Anime
+      </option>
+
+      <option value="publicidad">
+        Publicidad
+      </option>
+
+      <option value="fantasia">
+        Fantasía
+      </option>
+
+      <option value="cyberpunk">
+        Cyberpunk
+      </option>
+
+    </select>
+
+    <label>
+      Describe tu imagen
+    </label>
+
+    <textarea
+      name="prompt"
+      rows="6"
+      required
+      placeholder="Ej: Un carro futurista bajo la lluvia con luces neón..."
+    ></textarea>
+
+    <button
+      class="btn primary"
+      type="submit"
+    >
+      🚀 Generar imagen
+    </button>
+
+  </form>
+
+</section>
+
+<% if (
+  typeof resultado !== 'undefined' &&
+  resultado &&
+  resultado.url
+) { %>
+
+<section class="card result">
+
+  <h2>
+    ✅ Imagen generada con IA
+  </h2>
+
+  <p>
+    <strong>Estilo:</strong>
+    <%= resultado.estilo %>
+  </p>
+
+  <p style="color:#94a3b8;">
+    <%= resultado.prompt %>
+  </p>
+
+  <img
+    class="preview"
+    src="<%= resultado.url %>"
+    alt="Imagen IA"
+  >
+
+  <div
+    style="
+      margin-top:20px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    "
+  >
+
+    <a
+      class="btn primary"
+      href="<%= resultado.url %>"
+      target="_blank"
+    >
+      🔍 Ver grande
+    </a>
+
+    <a
+      class="btn"
+      href="<%= resultado.url %>"
+      download
+    >
+      📥 Descargar
+    </a>
+
+  </div>
+
+</section>
+
+<% } %>

@@ -1,0 +1,356 @@
+<section class="card">
+
+  <h1 style="margin-top:0;font-size:40px;margin-bottom:10px;">
+    🎬 Crear video IA
+  </h1>
+
+  <p style="color:#94a3b8;line-height:1.7;margin-bottom:25px;">
+    Genera un video con IA usando escenas, imágenes, guion, subtítulos y estructura para redes sociales.
+  </p>
+
+  <form method="POST" action="/crear-video" onsubmit="mostrarProgresoVideoIA()">
+
+    <label>Idea del video</label>
+
+    <textarea
+      name="prompt"
+      rows="6"
+      required
+      placeholder="Ej: Video promocional futurista para redes sociales..."
+    ></textarea>
+
+    <label>Duración en segundos</label>
+
+    <input
+      type="number"
+      name="duracion"
+      value="15"
+      min="5"
+      max="60"
+      required
+    >
+
+    <button class="btn primary" type="submit" id="btnCrearVideoIA">
+      🚀 Crear video IA
+    </button>
+
+  </form>
+
+  <div id="progresoVideoIA" style="display:none;margin-top:28px;">
+    <h3 style="margin-bottom:12px;">
+      🤖 FJ-IA está creando tu video...
+    </h3>
+
+    <div class="progress-video-wrap">
+      <div id="barraVideoIA" class="progress-video-bar"></div>
+    </div>
+
+    <p id="textoProgresoVideoIA" style="color:#94a3b8;margin-top:12px;">
+      🧠 Analizando la idea...
+    </p>
+  </div>
+
+</section>
+
+<% if (typeof resultado !== 'undefined' && resultado) { %>
+
+<section class="card result">
+
+  <h2 style="margin-top:0;font-size:34px;">
+    ✅ Video generado con IA
+  </h2>
+
+  <div class="video-info-grid">
+
+    <div class="info-video-box">
+      <strong>Estado</strong>
+      <p><%= resultado.estado || 'generado' %></p>
+    </div>
+
+    <div class="info-video-box">
+      <strong>Duración solicitada</strong>
+      <p><%= resultado.duracion || 15 %> segundos</p>
+    </div>
+
+    <div class="info-video-box">
+      <strong>Motor</strong>
+      <p style="color:#4ade80;">OpenAI + FFmpeg</p>
+    </div>
+
+  </div>
+
+  <p style="color:#94a3b8;">
+    <strong>Prompt:</strong>
+    <%= resultado.prompt || 'Sin prompt' %>
+  </p>
+
+  <% if (resultado.url) { %>
+
+    <div class="video-preview-box">
+
+      <video
+        controls
+        playsinline
+        preload="metadata"
+        class="video-preview"
+      >
+        <source src="<%= resultado.url %>" type="video/mp4">
+        Tu navegador no puede reproducir este video.
+      </video>
+
+    </div>
+
+  <% } %>
+
+  <% if (resultado.contenido) { %>
+
+    <h3 style="margin-top:30px;font-size:26px;">
+      🧠 Guion y escenas IA
+    </h3>
+
+    <div id="contenidoVideoIA" class="guion-video-box"><%= resultado.contenido %></div>
+
+  <% } %>
+
+  <div class="video-actions">
+
+    <% if (resultado.url) { %>
+
+      <a
+        href="<%= resultado.url %>"
+        target="_blank"
+        class="btn primary"
+        style="text-decoration:none;"
+      >
+        ▶️ Ver grande
+      </a>
+
+      <a
+        href="<%= resultado.url %>"
+        download="video-fj-ia.mp4"
+        class="btn"
+        style="text-decoration:none;"
+      >
+        ⬇️ Descargar
+      </a>
+
+    <% } %>
+
+    <% if (resultado.contenido) { %>
+      <button onclick="copiarGuionVideo()" type="button" class="btn">
+        📋 Copiar guion
+      </button>
+    <% } %>
+
+    <% if (resultado.url) { %>
+
+      <a
+        id="btnVideoWhatsapp"
+        target="_blank"
+        class="btn"
+        style="text-decoration:none;"
+      >
+        📲 WhatsApp
+      </a>
+
+      <a
+        id="btnVideoFacebook"
+        target="_blank"
+        class="btn"
+        style="text-decoration:none;"
+      >
+        📘 Facebook
+      </a>
+
+      <a
+        id="btnVideoTwitter"
+        target="_blank"
+        class="btn"
+        style="text-decoration:none;"
+      >
+        🐦 X
+      </a>
+
+    <% } %>
+
+  </div>
+
+</section>
+
+<% } %>
+
+<style>
+  .video-info-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:14px;
+    margin:20px 0;
+  }
+
+  .info-video-box {
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:16px;
+    padding:16px;
+  }
+
+  .info-video-box p {
+    margin-bottom:0;
+    color:#94a3b8;
+  }
+
+  .video-preview-box {
+    max-width:900px;
+    margin:28px auto 0;
+  }
+
+  .video-preview {
+    width:100%;
+    max-height:520px;
+    border-radius:22px;
+    background:#000;
+    display:block;
+    object-fit:contain;
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
+  }
+
+  .guion-video-box {
+    white-space:pre-wrap;
+    line-height:1.8;
+    background:rgba(255,255,255,0.04);
+    padding:24px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,0.08);
+    margin-top:15px;
+    margin-bottom:25px;
+    color:#e2e8f0;
+  }
+
+  .video-actions {
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:24px;
+  }
+
+  .progress-video-wrap {
+    width:100%;
+    height:16px;
+    background:rgba(255,255,255,0.08);
+    border-radius:999px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.08);
+  }
+
+  .progress-video-bar {
+    width:5%;
+    height:100%;
+    background:linear-gradient(90deg,#2563eb,#7c3aed,#ec4899);
+    border-radius:999px;
+    transition:width .5s ease;
+  }
+
+  @media (max-width: 768px) {
+    .video-preview-box {
+      max-width:100%;
+    }
+
+    .video-preview {
+      max-height:360px;
+      border-radius:16px;
+    }
+  }
+</style>
+
+<script>
+  function mostrarProgresoVideoIA() {
+    const progreso = document.getElementById('progresoVideoIA');
+    const barra = document.getElementById('barraVideoIA');
+    const texto = document.getElementById('textoProgresoVideoIA');
+    const btn = document.getElementById('btnCrearVideoIA');
+
+    if (!progreso || !barra || !texto) {
+      return true;
+    }
+
+    progreso.style.display = 'block';
+
+    if (btn) {
+      btn.disabled = true;
+      btn.innerText = '🎬 Creando video...';
+    }
+
+    const pasos = [
+      { porcentaje: 15, texto: '🧠 Analizando la idea...' },
+      { porcentaje: 35, texto: '✍️ Escribiendo el guion...' },
+      { porcentaje: 55, texto: '🎨 Generando escenas e imágenes...' },
+      { porcentaje: 75, texto: '🎤 Creando voz y música...' },
+      { porcentaje: 92, texto: '🎬 Renderizando video con FFmpeg...' }
+    ];
+
+    let i = 0;
+
+    const intervalo = setInterval(() => {
+      if (i >= pasos.length) {
+        clearInterval(intervalo);
+        return;
+      }
+
+      barra.style.width = pasos[i].porcentaje + '%';
+      texto.innerText = pasos[i].texto;
+      i++;
+    }, 1300);
+
+    return true;
+  }
+
+  async function copiarGuionVideo() {
+    const contenido = document.getElementById('contenidoVideoIA');
+
+    if (!contenido) {
+      alert('No hay guion para copiar.');
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(contenido.innerText);
+      alert('✅ Guion copiado');
+    } catch (error) {
+      alert('No se pudo copiar el guion.');
+    }
+  }
+
+  const contenidoElemento = document.getElementById('contenidoVideoIA');
+
+  const textoVideo = contenidoElemento
+    ? contenidoElemento.innerText
+    : 'Mira este video creado con FJ-IA 🚀';
+
+  const urlVideo = '<%= resultado && resultado.url ? resultado.url : "" %>';
+
+  const textoCompartir = encodeURIComponent(
+    'Mira este video creado con FJ-IA 🚀\n\n' +
+    textoVideo +
+    '\n\n' +
+    urlVideo
+  );
+
+  const btnWhatsapp = document.getElementById('btnVideoWhatsapp');
+  const btnFacebook = document.getElementById('btnVideoFacebook');
+  const btnTwitter = document.getElementById('btnVideoTwitter');
+
+  if (btnWhatsapp && urlVideo) {
+    btnWhatsapp.href = `https://wa.me/?text=${textoCompartir}`;
+  }
+
+  if (btnFacebook && urlVideo) {
+    btnFacebook.href =
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlVideo)}`;
+  }
+
+  if (btnTwitter && urlVideo) {
+    btnTwitter.href =
+      `https://twitter.com/intent/tweet?text=${textoCompartir}`;
+  }
+</script>

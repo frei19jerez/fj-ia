@@ -1,0 +1,28 @@
+<section class="page-head">
+  <h1>Editor de escenas: <%= pelicula.titulo %></h1>
+</section>
+
+<section class="card">
+  <h2>Agregar escena</h2>
+  <form method="POST" action="/escenas/<%= pelicula.id %>">
+    <label>Orden</label>
+    <input name="orden" type="number" value="<%= escenas.length + 1 %>">
+
+    <label>Título de escena</label>
+    <input name="titulo" required>
+
+    <label>Descripción</label>
+    <textarea name="descripcion" rows="5" required></textarea>
+
+    <button class="btn primary" type="submit">Guardar escena</button>
+  </form>
+</section>
+
+<section class="list">
+  <% escenas.forEach(e => { %>
+    <div class="card">
+      <h3>Escena <%= e.orden %>: <%= e.titulo %></h3>
+      <p><%= e.descripcion %></p>
+    </div>
+  <% }) %>
+</section>

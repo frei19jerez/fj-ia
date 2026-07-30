@@ -1,0 +1,28 @@
+<section class="card">
+  <h1>🎥 Crear película</h1>
+  <form method="POST" action="/crear-pelicula">
+    <label>Título</label>
+    <input name="titulo" required placeholder="Ej: Colombia Futura">
+
+    <label>Género</label>
+    <select name="genero">
+      <option value="accion">Acción</option>
+      <option value="drama">Drama</option>
+      <option value="ficcion">Ficción</option>
+      <option value="documental">Documental</option>
+    </select>
+
+    <label>Idea principal</label>
+    <textarea name="idea" rows="6" required placeholder="Describe la película que quieres crear..."></textarea>
+
+    <button class="btn primary" type="submit">Crear guion</button>
+  </form>
+</section>
+
+<% if (resultado) { %>
+  <section class="card result">
+    <h2><%= resultado.titulo %></h2>
+    <pre><%= resultado.guion %></pre>
+    <a class="btn" href="/editor-escenas/<%= resultado.id %>">Editar escenas</a>
+  </section>
+<% } %>

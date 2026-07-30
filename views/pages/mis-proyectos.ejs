@@ -1,0 +1,106 @@
+<section class="page-head">
+  <h1>📁 Mis proyectos</h1>
+
+  <p style="color:#94a3b8;">
+    Aquí puedes administrar todo tu contenido creado con FJ-IA.
+  </p>
+</section>
+
+<section class="list">
+
+  <% if (proyectos.length === 0) { %>
+
+    <div class="card">
+      <h3>
+        😢 No tienes proyectos todavía
+      </h3>
+
+      <p>
+        Comienza creando textos, imágenes o videos con IA.
+      </p>
+    </div>
+
+  <% } %>
+
+  <% proyectos.forEach(p => { %>
+
+    <div class="card">
+
+      <!-- HEADER -->
+
+      <div class="row">
+
+        <div>
+
+          <h3 style="margin:0 0 10px 0;">
+            <%= p.titulo %>
+          </h3>
+
+          <p style="margin:0;color:#94a3b8;">
+            <strong>Tipo:</strong>
+            <%= p.tipo %>
+
+            —
+
+            <strong>Estado:</strong>
+            <%= p.estado %>
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- ACCIONES -->
+
+      <div
+        style="
+          margin-top:20px;
+          display:flex;
+          gap:12px;
+          flex-wrap:wrap;
+        "
+      >
+
+        <a
+          class="btn primary"
+          href="/proyecto/<%= p.id %>"
+        >
+          👁️ Ver
+        </a>
+
+        <a
+          class="btn"
+          target="_blank"
+          href="https://wa.me/?text=<%= encodeURIComponent(
+            'Mira mi proyecto creado con FJ-IA 🚀'
+          ) %>"
+        >
+          📲 Compartir
+        </a>
+
+        <form
+          method="POST"
+          action="/proyecto/<%= p.id %>/eliminar"
+          onsubmit="return confirm('¿Eliminar proyecto?')"
+        >
+
+          <button
+            class="btn"
+            style="
+              background:#7f1d1d;
+              color:#fff;
+            "
+            type="submit"
+          >
+            🗑️ Eliminar
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  <% }) %>
+
+</section>

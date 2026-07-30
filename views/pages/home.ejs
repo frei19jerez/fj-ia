@@ -1,0 +1,133 @@
+<section style="
+  position:relative;
+  min-height:calc(100vh - 90px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  text-align:center;
+">
+
+  <!-- VIDEO FONDO -->
+
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    style="
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:0;
+      opacity:.28;
+    "
+  >
+
+    <source
+      src="/videos/home-fj-ia.mp4"
+      type="video/mp4"
+    >
+
+  </video>
+
+  <!-- CAPA OSCURA -->
+
+  <div style="
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+      135deg,
+      rgba(2,6,23,.92),
+      rgba(15,23,42,.75)
+    );
+    z-index:1;
+  "></div>
+
+  <!-- CONTENIDO -->
+
+  <div style="
+    position:relative;
+    z-index:2;
+    max-width:900px;
+    padding:40px 20px;
+  ">
+
+   <h1 style="
+  margin:0;
+  font-size:96px;
+  font-weight:900;
+  line-height:1;
+  letter-spacing:-2px;
+  background:linear-gradient(
+    135deg,
+    #38bdf8 0%,
+    #6366f1 40%,
+    #a855f7 70%,
+    #f472b6 100%
+  );
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  color:transparent;
+  text-shadow:0 0 30px rgba(99,102,241,.25);
+">
+  🚀 FJ-IA
+</h1>
+
+<p style="
+  margin:18px 0 0;
+  font-size:24px;
+  color:#cbd5e1;
+  font-weight:600;
+">
+  De una idea a una película.
+</p>
+
+<p style="
+  margin-top:10px;
+  max-width:760px;
+  color:#94a3b8;
+  font-size:18px;
+  line-height:1.8;
+">
+  Crea imágenes, videos, voz, guiones, subtítulos y contenido con Inteligencia Artificial desde un solo lugar.
+</p>
+
+    <p style="
+      font-size:30px;
+      color:#e2e8f0;
+      line-height:1.5;
+      margin-bottom:35px;
+    ">
+      Convierte una idea en texto, imagen, video o película.
+    </p>
+
+    <div style="
+      display:flex;
+      justify-content:center;
+      gap:18px;
+      flex-wrap:wrap;
+    ">
+
+      <a
+        class="btn primary"
+        href="/register"
+      >
+        Crear cuenta
+      </a>
+
+      <a
+        class="btn"
+        href="/login"
+      >
+        Iniciar sesión
+      </a>
+
+    </div>
+
+  </div>
+
+</section>

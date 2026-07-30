@@ -1,0 +1,163 @@
+<section class="page-head">
+
+  <h1>
+    🚀 <%= proyecto.titulo %>
+  </h1>
+
+  <p style="color:#94a3b8;">
+
+    Tipo:
+    <strong><%= proyecto.tipo %></strong>
+
+    —
+
+    Estado:
+    <strong><%= proyecto.estado %></strong>
+
+  </p>
+
+</section>
+
+<section class="card">
+
+  <!-- TEXTO -->
+
+  <% if (proyecto.tipo === 'texto' && contenido) { %>
+
+    <h2>
+      ✍️ Texto generado
+    </h2>
+
+    <pre>
+<%= contenido.contenido %>
+    </pre>
+
+  <% } %>
+
+  <!-- IMAGEN -->
+
+  <% if (proyecto.tipo === 'imagen' && contenido) { %>
+
+    <h2>
+      🖼 Imagen IA
+    </h2>
+
+    <img
+      class="preview"
+      src="<%= contenido.url %>"
+      alt="Imagen IA"
+    >
+
+  <% } %>
+
+  <!-- VIDEO -->
+
+  <% if (proyecto.tipo === 'video' && contenido) { %>
+
+    <h2>
+      🎬 Video IA
+    </h2>
+
+    <video
+      class="preview"
+      controls
+    >
+      <source
+        src="<%= contenido.url %>"
+        type="video/mp4"
+      >
+    </video>
+
+    <% if (contenido.contenido) { %>
+
+      <h3 style="margin-top:30px;">
+        📋 Guion IA
+      </h3>
+
+      <pre>
+<%= contenido.contenido %>
+      </pre>
+
+    <% } %>
+
+  <% } %>
+
+  <!-- BOTONES -->
+
+  <div
+    style="
+      margin-top:30px;
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    "
+  >
+
+    <!-- WHATSAPP -->
+
+    <a
+      class="btn primary"
+      target="_blank"
+      href="https://wa.me/?text=<%= encodeURIComponent(
+        'Mira mi proyecto creado con FJ-IA 🚀'
+      ) %>"
+    >
+      📲 WhatsApp
+    </a>
+
+    <!-- FACEBOOK -->
+
+    <a
+      class="btn"
+      target="_blank"
+      href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent('http://127.0.0.1:1337/proyecto/' + proyecto.id) %>"
+    >
+      👍 Facebook
+    </a>
+
+    <!-- X -->
+
+    <a
+      class="btn"
+      target="_blank"
+      href="https://twitter.com/intent/tweet?text=<%= encodeURIComponent(
+        'Mira este proyecto IA creado con FJ-IA 🚀'
+      ) %>"
+    >
+      🐦 X
+    </a>
+
+    <!-- LINKEDIN -->
+
+    <a
+      class="btn"
+      target="_blank"
+      href="https://www.linkedin.com/sharing/share-offsite/?url=<%= encodeURIComponent('http://127.0.0.1:1337/proyecto/' + proyecto.id) %>"
+    >
+      💼 LinkedIn
+    </a>
+
+    <!-- ELIMINAR -->
+
+    <form
+      method="POST"
+      action="/proyecto/<%= proyecto.id %>/eliminar"
+      onsubmit="return confirm('¿Eliminar proyecto?')"
+    >
+
+      <button
+        class="btn"
+        type="submit"
+        style="
+          background:#7f1d1d;
+          color:#fff;
+        "
+      >
+        🗑️ Eliminar
+      </button>
+
+    </form>
+
+  </div>
+
+</section>

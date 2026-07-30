@@ -1,0 +1,341 @@
+<section class="card">
+
+  <h1 style="
+    margin-top:0;
+    font-size:40px;
+    margin-bottom:10px;
+  ">
+    ✍️ Crear texto con IA
+  </h1>
+
+  <p style="
+    color:#94a3b8;
+    margin-bottom:30px;
+    line-height:1.7;
+  ">
+    Genera anuncios, historias, guiones, noticias y contenido profesional
+    con inteligencia artificial para redes sociales, negocios y proyectos.
+  </p>
+
+  <form method="POST" action="/crear-texto">
+
+    <label>Tipo de texto</label>
+
+    <select name="tipo" required>
+
+      <option value="publicidad">
+        📢 Publicidad
+      </option>
+
+      <option value="guion">
+        🎬 Guion
+      </option>
+
+      <option value="noticia">
+        📰 Noticia
+      </option>
+
+      <option value="historia">
+        📖 Historia
+      </option>
+
+      <option value="general">
+        🧠 General
+      </option>
+
+    </select>
+
+    <label>Tu idea</label>
+
+    <textarea
+      name="prompt"
+      rows="7"
+      required
+      placeholder="Ej: Crea un anuncio moderno para un lavadero de carros..."
+    ></textarea>
+
+    <button
+      class="btn primary"
+      type="submit"
+      style="
+        margin-top:20px;
+      "
+    >
+      🚀 Generar texto IA
+    </button>
+
+  </form>
+
+</section>
+
+<% if (
+  typeof resultado !== 'undefined' &&
+  resultado &&
+  resultado.contenido
+) { %>
+
+<section class="card result">
+
+  <div style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+  ">
+
+    <div>
+
+      <h2 style="
+        margin:0;
+        font-size:34px;
+      ">
+        ✅ Resultado generado
+      </h2>
+
+      <p style="
+        margin-top:10px;
+        color:#94a3b8;
+      ">
+        Tipo:
+        <strong>
+          <%= resultado.tipo %>
+        </strong>
+      </p>
+
+    </div>
+
+    <div style="
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    ">
+
+      <button
+        onclick="copiarTexto()"
+        class="btn primary"
+        type="button"
+      >
+        📋 Copiar
+      </button>
+
+      <button
+        onclick="descargarTexto()"
+        class="btn"
+        type="button"
+      >
+        ⬇️ Descargar
+      </button>
+
+    </div>
+
+  </div>
+
+  <div
+    id="textoGenerado"
+    style="
+      white-space:pre-wrap;
+      line-height:1.9;
+      background:rgba(255,255,255,0.04);
+      padding:25px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,0.06);
+      color:#e2e8f0;
+      font-size:17px;
+    "
+  >
+    <%= resultado.contenido %>
+  </div>
+
+  <div style="
+    margin-top:30px;
+  ">
+
+    <h3 style="
+      margin-bottom:15px;
+    ">
+      🌎 Compartir en redes sociales
+    </h3>
+
+    <div style="
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    ">
+
+      <a
+        id="btnWhatsapp"
+        target="_blank"
+        class="btn primary"
+        style="
+          text-decoration:none;
+        "
+      >
+        📲 WhatsApp
+      </a>
+
+      <a
+        id="btnFacebook"
+        target="_blank"
+        class="btn"
+        style="
+          text-decoration:none;
+        "
+      >
+        📘 Facebook
+      </a>
+
+      <a
+        id="btnTwitter"
+        target="_blank"
+        class="btn"
+        style="
+          text-decoration:none;
+        "
+      >
+        🐦 X / Twitter
+      </a>
+
+      <a
+        id="btnTelegram"
+        target="_blank"
+        class="btn"
+        style="
+          text-decoration:none;
+        "
+      >
+        ✈️ Telegram
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+
+  /*
+  |--------------------------------------------------------------------------
+  | COPIAR
+  |--------------------------------------------------------------------------
+  */
+
+  function copiarTexto() {
+
+    const texto =
+      document.getElementById(
+        'textoGenerado'
+      ).innerText;
+
+    navigator.clipboard.writeText(texto);
+
+    alert(
+      '✅ Texto copiado al portapapeles'
+    );
+
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | DESCARGAR
+  |--------------------------------------------------------------------------
+  */
+
+  function descargarTexto() {
+
+    const texto =
+      document.getElementById(
+        'textoGenerado'
+      ).innerText;
+
+    const blob =
+      new Blob(
+        [texto],
+        {
+          type: 'text/plain'
+        }
+      );
+
+    const url =
+      URL.createObjectURL(blob);
+
+    const a =
+      document.createElement('a');
+
+    a.href = url;
+
+    a.download =
+      'texto-ia.txt';
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | TEXTO IA
+  |--------------------------------------------------------------------------
+  */
+
+  const resultadoTexto =
+    document.getElementById(
+      'textoGenerado'
+    ).innerText;
+
+  const textoCompartir =
+    encodeURIComponent(
+      'Mira este texto creado con IA 🚀\n\n' +
+      resultadoTexto
+    );
+
+  /*
+  |--------------------------------------------------------------------------
+  | WHATSAPP
+  |--------------------------------------------------------------------------
+  */
+
+  document.getElementById(
+    'btnWhatsapp'
+  ).href =
+    `https://wa.me/?text=${textoCompartir}`;
+
+  /*
+  |--------------------------------------------------------------------------
+  | FACEBOOK
+  |--------------------------------------------------------------------------
+  */
+
+  document.getElementById(
+    'btnFacebook'
+  ).href =
+    `https://www.facebook.com/sharer/sharer.php?u=https://fj-ia.com`;
+
+  /*
+  |--------------------------------------------------------------------------
+  | X / TWITTER
+  |--------------------------------------------------------------------------
+  */
+
+  document.getElementById(
+    'btnTwitter'
+  ).href =
+    `https://twitter.com/intent/tweet?text=${textoCompartir}`;
+
+  /*
+  |--------------------------------------------------------------------------
+  | TELEGRAM
+  |--------------------------------------------------------------------------
+  */
+
+  document.getElementById(
+    'btnTelegram'
+  ).href =
+    `https://t.me/share/url?text=${textoCompartir}`;
+
+</script>
+
+<% } %>
