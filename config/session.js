@@ -1,19 +1,15 @@
 module.exports.session = {
-  name: 'fjia.sid',
+  name: 'fj_ia_sid',
 
   secret:
     process.env.SESSION_SECRET ||
-    'fj-ia-secret-local',
+    'fj-ia-secret-local-cambiar-en-produccion',
 
   cookie: {
-    secure:
-      process.env.NODE_ENV === 'production',
-
+    secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
-
     sameSite: 'lax',
-
-    maxAge:
-      24 * 60 * 60 * 1000
+    maxAge: 24 * 60 * 60 * 1000,
+    path: '/runtime/fj-ia'
   }
 };
