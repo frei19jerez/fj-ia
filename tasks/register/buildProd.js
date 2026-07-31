@@ -13,7 +13,7 @@
  */
 module.exports = function(grunt) {
   grunt.registerTask('buildProd', [
-    'polyfill:prod', //« Remove this to skip transpilation in production (not recommended)
+    // 'polyfill:prod',
     'compileAssets',
     // 'babel',
     'concat',
