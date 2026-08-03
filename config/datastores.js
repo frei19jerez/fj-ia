@@ -1,5 +1,7 @@
 module.exports.datastores = {
+
   default: {
+
     adapter: 'sails-postgresql',
 
     url:
@@ -12,5 +14,7 @@ module.exports.datastores = {
             rejectUnauthorized: false
           }
         : false
+
   }
+
 };
