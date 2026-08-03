@@ -1,3 +1,10 @@
+<%
+  const prefix =
+    typeof runtimePrefix !== 'undefined'
+      ? runtimePrefix
+      : '';
+%>
+
 <section style="
   position:relative;
   min-height:calc(100vh - 90px);
@@ -8,7 +15,7 @@
   text-align:center;
 ">
 
-  <!-- VIDEO FONDO -->
+  <!-- VIDEO DE FONDO -->
 
   <video
     autoplay
@@ -27,7 +34,7 @@
   >
 
     <source
-      src="/videos/home-fj-ia.mp4"
+      src="<%= prefix %>/videos/home-fj-ia.mp4"
       type="video/mp4"
     >
 
@@ -55,52 +62,52 @@
     padding:40px 20px;
   ">
 
-   <h1 style="
-  margin:0;
-  font-size:96px;
-  font-weight:900;
-  line-height:1;
-  letter-spacing:-2px;
-  background:linear-gradient(
-    135deg,
-    #38bdf8 0%,
-    #6366f1 40%,
-    #a855f7 70%,
-    #f472b6 100%
-  );
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  color:transparent;
-  text-shadow:0 0 30px rgba(99,102,241,.25);
-">
-  🚀 FJ-IA
-</h1>
-
-<p style="
-  margin:18px 0 0;
-  font-size:24px;
-  color:#cbd5e1;
-  font-weight:600;
-">
-  De una idea a una película.
-</p>
-
-<p style="
-  margin-top:10px;
-  max-width:760px;
-  color:#94a3b8;
-  font-size:18px;
-  line-height:1.8;
-">
-  Crea imágenes, videos, voz, guiones, subtítulos y contenido con Inteligencia Artificial desde un solo lugar.
-</p>
+    <h1 style="
+      margin:0;
+      font-size:clamp(54px, 10vw, 96px);
+      font-weight:900;
+      line-height:1;
+      letter-spacing:-2px;
+      background:linear-gradient(
+        135deg,
+        #38bdf8 0%,
+        #6366f1 40%,
+        #a855f7 70%,
+        #f472b6 100%
+      );
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+      color:transparent;
+      text-shadow:0 0 30px rgba(99,102,241,.25);
+    ">
+      🚀 FJ-IA
+    </h1>
 
     <p style="
-      font-size:30px;
+      margin:18px 0 0;
+      font-size:24px;
+      color:#cbd5e1;
+      font-weight:600;
+    ">
+      De una idea a una película.
+    </p>
+
+    <p style="
+      margin:10px auto 0;
+      max-width:760px;
+      color:#94a3b8;
+      font-size:18px;
+      line-height:1.8;
+    ">
+      Crea imágenes, videos, voz, guiones, subtítulos y contenido con Inteligencia Artificial desde un solo lugar.
+    </p>
+
+    <p style="
+      font-size:clamp(22px, 4vw, 30px);
       color:#e2e8f0;
       line-height:1.5;
-      margin-bottom:35px;
+      margin:28px 0 35px;
     ">
       Convierte una idea en texto, imagen, video o película.
     </p>
@@ -113,15 +120,15 @@
     ">
 
       <a
-        class="btn primary"
-        href="/register"
+        class="btn btn-primary btn-lg px-4"
+        href="<%= prefix %>/register"
       >
         Crear cuenta
       </a>
 
       <a
-        class="btn"
-        href="/login"
+        class="btn btn-outline-light btn-lg px-4"
+        href="<%= prefix %>/login"
       >
         Iniciar sesión
       </a>
