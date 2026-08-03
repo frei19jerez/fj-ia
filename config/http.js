@@ -2,59 +2,43 @@
  * HTTP Server Settings
  * (sails.config.http)
  *
- * Configuration for the underlying HTTP server in Sails.
- * (for additional recommended settings, see `config/env/production.js`)
- *
- * For more information on configuration, check out:
- * https://sailsjs.com/config/http
+ * Configuración del servidor HTTP de FJ-IA.
  */
 
 module.exports.http = {
 
-  /****************************************************************************
-  *                                                                           *
-  * Sails/Express middleware to run for every HTTP request.                   *
-  * (Only applies to HTTP requests -- not virtual WebSocket requests.)        *
-  *                                                                           *
-  * https://sailsjs.com/documentation/concepts/middleware                     *
-  *                                                                           *
-  ****************************************************************************/
+  /*
+   * FJ-IA funciona detrás del proxy HTTPS de DemoFlowApp/Render.
+   * Esto permite que Sails reconozca correctamente las solicitudes
+   * seguras y envíe la cookie de sesión con `secure: true`.
+   */
+  trustProxy: true,
 
   middleware: {
 
-    /***************************************************************************
-    *                                                                          *
-    * The order in which middleware should be run for HTTP requests.           *
-    * (This Sails app's routes are handled by the "router" middleware below.)  *
-    *                                                                          *
-    ***************************************************************************/
+    /*
+     * Se conserva el orden predeterminado de middleware de Sails.
+     *
+     * order: [
+     *   'cookieParser',
+     *   'session',
+     *   'bodyParser',
+     *   'compress',
+     *   'poweredBy',
+     *   'router',
+     *   'www',
+     *   'favicon',
+     * ],
+     */
 
-    // order: [
-    //   'cookieParser',
-    //   'session',
-    //   'bodyParser',
-    //   'compress',
-    //   'poweredBy',
-    //   'router',
-    //   'www',
-    //   'favicon',
-    // ],
-
-
-    /***************************************************************************
-    *                                                                          *
-    * The body parser that will handle incoming multipart HTTP requests.       *
-    *                                                                          *
-    * https://sailsjs.com/config/http#?customizing-the-body-parser             *
-    *                                                                          *
-    ***************************************************************************/
-
-    // bodyParser: (function _configureBodyParser(){
-    //   var skipper = require('skipper');
-    //   var middlewareFn = skipper({ strict: true });
-    //   return middlewareFn;
-    // })(),
-
-  },
+    /*
+     * Configuración opcional para archivos multipart.
+     *
+     * bodyParser: (function _configureBodyParser() {
+     *   const skipper = require('skipper');
+     *   return skipper({ strict: true });
+     * })(),
+     */
+  }
 
 };
