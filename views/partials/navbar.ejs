@@ -1,55 +1,103 @@
-<nav class="navbar">
+<%
+  const prefix =
+    typeof runtimePrefix !== 'undefined'
+      ? runtimePrefix
+      : '';
+%>
 
-  <!-- LOGO -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+  <div class="container">
 
-  <a class="brand" href="/">
+    <!-- LOGO -->
+    <a class="navbar-brand d-flex align-items-center gap-2" href="<%= prefix %>/">
 
-    <span class="brand-icon">
-      🚀
-    </span>
+      <span
+        class="d-inline-flex align-items-center justify-content-center rounded-3"
+        style="
+          width: 46px;
+          height: 46px;
+          background: linear-gradient(135deg, #4169e1, #9b4dff);
+          font-size: 1.45rem;
+        "
+      >
+        🚀
+      </span>
 
-    <div class="brand-text">
+      <span class="d-flex flex-column lh-sm">
+        <strong class="fs-4">
+          FJ-IA
+        </strong>
 
-      <strong>
-        FJ-IA
-      </strong>
+        <small class="text-white-50">
+          Inteligencia Artificial
+        </small>
+      </span>
 
-      <small>
-        Inteligencia Artificial
-      </small>
+    </a>
+
+    <!-- BOTÓN HAMBURGUESA -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#fjIaNavbar"
+      aria-controls="fjIaNavbar"
+      aria-expanded="false"
+      aria-label="Abrir menú"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- MENÚ -->
+    <div class="collapse navbar-collapse" id="fjIaNavbar">
+
+      <div class="navbar-nav ms-auto align-items-lg-center gap-lg-1 mt-3 mt-lg-0">
+
+        <a
+          class="nav-link px-3 py-2 rounded"
+          href="<%= prefix %>/dashboard"
+        >
+          🧠 Panel
+        </a>
+
+        <a
+          class="nav-link px-3 py-2 rounded"
+          href="<%= prefix %>/crear-texto"
+        >
+          ✍️ Texto
+        </a>
+
+        <a
+          class="nav-link px-3 py-2 rounded"
+          href="<%= prefix %>/crear-imagen"
+        >
+          🎨 Imagen
+        </a>
+
+        <a
+          class="nav-link px-3 py-2 rounded"
+          href="<%= prefix %>/crear-video"
+        >
+          🎬 Video
+        </a>
+
+        <a
+          class="nav-link px-3 py-2 rounded"
+          href="<%= prefix %>/crear-pelicula"
+        >
+          🍿 Película
+        </a>
+
+        <a
+          class="btn btn-outline-danger ms-lg-2 mt-2 mt-lg-0"
+          href="<%= prefix %>/logout"
+        >
+          🚪 Salir
+        </a>
+
+      </div>
 
     </div>
 
-  </a>
-
-  <!-- MENU -->
-
-  <div class="nav-links">
-
-    <a href="/dashboard">
-      🧠 Panel
-    </a>
-
-    <a href="/crear-texto">
-      ✍️ Texto
-    </a>
-
-    <a href="/crear-imagen">
-      🎨 Imagen
-    </a>
-
-    <a href="/crear-video">
-      🎬 Video
-    </a>
-
-    <a href="/crear-pelicula">
-      🍿 Película
-    </a>
-
-    <a class="logout-btn" href="/logout">
-      🚪 Salir
-    </a>
-
   </div>
-
 </nav>
