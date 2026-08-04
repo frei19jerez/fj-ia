@@ -1,31 +1,45 @@
 const bcrypt = require('bcryptjs');
 
 module.exports = {
+
   showRegister: async function(req, res) {
     return res.view('pages/register');
   },
 
   register: async function(req, res) {
+
+    const runtimePrefix = (
+      req.get('x-runtime-prefix') ||
+      req.get('x-forwarded-prefix') ||
+      process.env.RUNTIME_PREFIX ||
+      ''
+    ).replace(/\/+$/, '');
+
+    const url = (ruta) => `${runtimePrefix}${ruta}`;
+
     try {
+
       const { nombre, email, password } = req.body;
 
       if (!nombre || !email || !password) {
         req.session.error = 'Todos los campos son obligatorios.';
-        return res.redirect('/register');
+        return res.redirect(url('/register'));
       }
 
-      const existe = await Usuario.findOne({ email: email.toLowerCase() });
+      const existe = await Usuario.findOne({
+        email: String(email).toLowerCase()
+      });
 
       if (existe) {
         req.session.error = 'Ese correo ya está registrado.';
-        return res.redirect('/register');
+        return res.redirect(url('/register'));
       }
 
       const passwordHash = await bcrypt.hash(password, 10);
 
       const usuario = await Usuario.create({
         nombre,
-        email: email.toLowerCase(),
+        email: String(email).toLowerCase(),
         password: passwordHash
       }).fetch();
 
@@ -36,13 +50,23 @@ module.exports = {
       });
 
       req.session.userId = usuario.id;
-      return res.redirect('/dashboard');
+
+      return res.redirect(url('/dashboard'));
 
     } catch (error) {
+
+      console.error('========================================');
+      console.error('ERROR REGISTER');
       console.error(error);
-      req.session.error = 'Error creando la cuenta.';
-      return res.redirect('/register');
+      console.error(error.stack);
+      console.error('========================================');
+
+      req.session.error = error.message;
+
+      return res.redirect(url('/register'));
+
     }
+
   },
 
   showLogin: async function(req, res) {
@@ -50,7 +74,18 @@ module.exports = {
   },
 
   login: async function(req, res) {
+
+    const runtimePrefix = (
+      req.get('x-runtime-prefix') ||
+      req.get('x-forwarded-prefix') ||
+      process.env.RUNTIME_PREFIX ||
+      ''
+    ).replace(/\/+$/, '');
+
+    const url = (ruta) => `${runtimePrefix}${ruta}`;
+
     try {
+
       const { email, password } = req.body;
 
       const usuario = await Usuario.findOne({
@@ -59,29 +94,51 @@ module.exports = {
 
       if (!usuario) {
         req.session.error = 'Correo o contraseña incorrectos.';
-        return res.redirect('/login');
+        return res.redirect(url('/login'));
       }
 
       const ok = await bcrypt.compare(password, usuario.password);
 
       if (!ok) {
         req.session.error = 'Correo o contraseña incorrectos.';
-        return res.redirect('/login');
+        return res.redirect(url('/login'));
       }
 
       req.session.userId = usuario.id;
-      return res.redirect('/dashboard');
+
+      return res.redirect(url('/dashboard'));
 
     } catch (error) {
+
+      console.error('========================================');
+      console.error('ERROR LOGIN');
       console.error(error);
-      req.session.error = 'Error iniciando sesión.';
-      return res.redirect('/login');
+      console.error(error.stack);
+      console.error('========================================');
+
+      req.session.error = error.message;
+
+      return res.redirect(url('/login'));
+
     }
+
   },
 
   logout: async function(req, res) {
+
+    const runtimePrefix = (
+      req.get('x-runtime-prefix') ||
+      req.get('x-forwarded-prefix') ||
+      process.env.RUNTIME_PREFIX ||
+      ''
+    ).replace(/\/+$/, '');
+
+    const url = (ruta) => `${runtimePrefix}${ruta}`;
+
     req.session.destroy(() => {
-      return res.redirect('/');
+      return res.redirect(url('/'));
     });
+
   }
+
 };
