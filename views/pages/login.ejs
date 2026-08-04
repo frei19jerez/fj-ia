@@ -1,12 +1,46 @@
+<%
+  const prefix =
+    typeof runtimePrefix !== 'undefined'
+      ? runtimePrefix
+      : '';
+%>
+
 <section class="card form-card">
   <h1>Iniciar sesión</h1>
-  <form method="POST" action="/login">
-    <label>Email</label>
-    <input name="email" type="email" required>
 
-    <label>Contraseña</label>
-    <input name="password" type="password" required>
+  <form
+    method="POST"
+    action="<%= prefix %>/login"
+  >
+    <label for="email">
+      Email
+    </label>
 
-    <button class="btn primary" type="submit">Entrar</button>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      autocomplete="email"
+      required
+    >
+
+    <label for="password">
+      Contraseña
+    </label>
+
+    <input
+      id="password"
+      name="password"
+      type="password"
+      autocomplete="current-password"
+      required
+    >
+
+    <button
+      class="btn primary"
+      type="submit"
+    >
+      Entrar
+    </button>
   </form>
 </section>

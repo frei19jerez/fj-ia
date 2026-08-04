@@ -1,9 +1,26 @@
 <%
   const prefix =
     typeof runtimePrefix !== 'undefined'
-      ? runtimePrefix
+      ? String(runtimePrefix).trim().replace(/\/+$/, '')
       : '';
 %>
+
+<!-- PRUEBA TEMPORAL DEL RUNTIME PREFIX -->
+<div style="
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:999999;
+  padding:8px 12px;
+  border-radius:8px;
+  background:#000;
+  color:#22c55e;
+  font-family:monospace;
+  font-size:13px;
+  box-shadow:0 4px 20px rgba(0,0,0,.35);
+">
+  runtimePrefix = "<%= prefix %>"
+</div>
 
 <section style="
   position:relative;
